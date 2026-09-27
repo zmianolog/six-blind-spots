@@ -12,7 +12,7 @@
 *{box-sizing:border-box}
 html,body{margin:0}
 body{font-family:Montserrat,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.5}
-header{background:#fff;border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+header{background:#fff;border-bottom:1px solid var(--line);padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .mark{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--navy);font-size:15px}
 .mark svg{width:30px;height:22px}
 #kto{font-size:13px;color:var(--mut);font-weight:600}
@@ -39,14 +39,14 @@ input[type=text]{font:inherit;width:100%;border:1.5px solid var(--line);border-r
 .hint{font-size:13.5px;color:var(--mut)}
 .pl{font-size:12px;color:var(--mut);font-weight:500}
 /* presenter */
-body.pres main{max-width:1180px}
-.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:18px}
+body.pres main{max-width:1180px;padding-top:12px;padding-bottom:12px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:12px}
 .panel .stat{font-size:15px}
 .panel .stat strong{font-size:22px;color:var(--navy)}
-.link{font-size:14px;word-break:break-all;background:var(--bg);padding:8px 10px;border-radius:8px;margin-top:8px}
-.board{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 30px}
-.board h2{font-size:30px;color:var(--navy);margin:0 0 4px}
-.board .n{font-size:17px;color:var(--mut);margin-bottom:20px}
+.link{font-size:13.5px;word-break:break-all;background:var(--bg);padding:6px 10px;border-radius:8px;margin-top:8px;text-align:center}
+.board{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 24px}
+.board h2{font-size:24px;color:var(--navy);margin:0 0 4px}
+.board .n{font-size:16px;color:var(--mut);margin-bottom:12px}
 .board .n strong{color:var(--navy);font-size:22px}
 .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .col h3{font-size:15.5px;color:var(--navy);margin:0 0 14px;min-height:66px}
@@ -58,19 +58,20 @@ body.pres main{max-width:1180px}
 .bar.top .f{background:var(--navy)}
 .com{font-size:14.5px;border-top:1px solid var(--line);margin-top:14px;padding-top:12px;color:var(--ink)}
 .cross{margin-top:22px;padding:14px 16px;background:#EAF2F8;border-radius:10px;font-size:15.5px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
 .grid3:first-child{margin-top:0}
-.tile{height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px 12px;line-height:1.25}
-.tile .pl{display:block;margin-top:3px;font-size:12px}
+.tile{height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4px 10px;line-height:1.2}
+.tile .pl{display:block;margin-top:1px;font-size:11.5px}
 button.tile .pl{color:inherit;opacity:.7}
 .box{border:1.5px solid var(--line);border-radius:10px;background:#fff}
 .box small{font-size:12px;color:var(--mut);font-weight:600}
-.box input{border:none;text-align:center;font-weight:700;font-size:20px;color:var(--navy);padding:2px;width:100%}
-.box strong{font-size:26px;color:var(--navy);line-height:1}
-.grp{font-size:12px;font-weight:700;color:var(--mut);margin:18px 0 0}
+.box input{border:none;text-align:center;font-weight:700;font-size:18px;color:var(--navy);padding:2px;width:100%}
+.box strong{font-size:22px;color:var(--navy);line-height:1}
+.grp{font-size:12px;font-weight:700;color:var(--mut);margin:10px 0 0}
+.grp:first-child{margin-top:0}
 @media (max-width:700px){.grid3{grid-template-columns:1fr}}
 .hidden{display:none!important}
-.veil{height:260px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px;border:2px dashed var(--line);border-radius:12px}
+.veil{height:80px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px;border:2px dashed var(--line);border-radius:12px}
 body.show #ctrl{display:none}
 body.show header{display:none}
 body.show main{padding-top:30px}
