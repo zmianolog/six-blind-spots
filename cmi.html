@@ -58,6 +58,17 @@ body.pres main{max-width:1180px}
 .bar.top .f{background:var(--navy)}
 .com{font-size:14.5px;border-top:1px solid var(--line);margin-top:14px;padding-top:12px;color:var(--ink)}
 .cross{margin-top:22px;padding:14px 16px;background:#EAF2F8;border-radius:10px;font-size:15.5px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.grid3:first-child{margin-top:0}
+.tile{height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px 12px;line-height:1.25}
+.tile .pl{display:block;margin-top:3px;font-size:12px}
+button.tile .pl{color:inherit;opacity:.7}
+.box{border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.box small{font-size:12px;color:var(--mut);font-weight:600}
+.box input{border:none;text-align:center;font-weight:700;font-size:20px;color:var(--navy);padding:2px;width:100%}
+.box strong{font-size:26px;color:var(--navy);line-height:1}
+.grp{font-size:12px;font-weight:700;color:var(--mut);margin:18px 0 0}
+@media (max-width:700px){.grid3{grid-template-columns:1fr}}
 .hidden{display:none!important}
 .veil{height:260px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px;border:2px dashed var(--line);border-radius:12px}
 body.show #ctrl{display:none}
@@ -219,7 +230,7 @@ function widokLogowanie(user){
   $("#app").innerHTML = `<h1>Presenter view <span class="pl">(widok prowadzącego)</span></h1>
    <div class="panel"><p>Sign in with the presenter’s Google account. <span class="pl">(Zaloguj się kontem Google prowadzącego.)</span></p>
    ${inny?`<div class="msg err">Signed in as ${esc(user.email)}, which is not the presenter account.</div>`:""}
-   <div class="row"><button id="log">Sign in with Google</button>${inny?`<button class="sec" id="wyl">Sign out</button>`:""}</div><div id="e"></div></div>`;
+   <div class="grid3"><button class="tile" id="log">Sign in with Google<span class="pl">zaloguj kontem Google</span></button>${inny?`<button class="sec tile" id="wyl">Sign out<span class="pl">wyloguj</span></button>`:""}</div><div id="e"></div></div>`;
   $("#log").onclick = async () => { try{ await signInWithPopup(auth,new GoogleAuthProvider()); }catch(e){ $("#e").innerHTML=`<div class="msg err">${esc(blad(e))}</div>`; } };
   if(inny) $("#wyl").onclick = () => signOut(auth);
 }
@@ -232,27 +243,29 @@ function widokProwadzacy(){
   $("#app").innerHTML = `
    <div id="ctrl">
     <div class="panel">
-     <div class="row" style="margin-top:0">
-      <label class="hint" for="kod">Code <span class="pl">(kod)</span></label>
-      <input type="text" id="kod" value="${esc(kod)}" style="width:130px">
-      <button class="sec" id="zmienKod">Use this code <span class="pl">(użyj)</span></button>
-      <span id="stan" class="hint"></span>
+     <div class="grp">Session <span class="pl">(sesja)</span></div>
+     <div class="grid3">
+      <div class="tile box"><small>Code <span class="pl" style="display:inline">(kod)</span></small><input type="text" id="kod" value="${esc(kod)}" aria-label="Code"></div>
+      <button class="sec tile" id="zmienKod">Use this code<span class="pl">użyj tego kodu</span></button>
+      <div class="tile box" id="stan"></div>
      </div>
      <div class="link" id="lnk"></div>
-     <div class="row">
-      <button id="kopiuj" class="sec">Copy link <span class="pl">(kopiuj link do czatu)</span></button>
-      <button id="otworz">Open poll <span class="pl">(otwórz ankietę)</span></button>
-      <button id="zamknij" class="sec">Close poll <span class="pl">(zamknij)</span></button>
-      <button id="czysc" class="red">Clear answers <span class="pl">(wyczyść odpowiedzi)</span></button>
+     <div class="grid3">
+      <button class="tile" id="otworz">Open poll<span class="pl">otwórz ankietę</span></button>
+      <button class="sec tile" id="zamknij">Close poll<span class="pl">zamknij ankietę</span></button>
+      <button class="red tile" id="czysc">Clear answers<span class="pl">wyczyść odpowiedzi</span></button>
      </div>
-     <div class="row stat panel" style="border:none;padding:0;margin-top:14px">
-      <span class="stat">Joined <span class="pl">(dołączyło)</span>: <strong id="nObec">0</strong></span>
-      <span class="stat">Answered <span class="pl">(odpowiedziało)</span>: <strong id="nOdp">0</strong></span>
+     <div class="grp">Screen <span class="pl">(ekran)</span></div>
+     <div class="grid3">
+      <button class="sec tile" id="kopiuj">Copy link<span class="pl">kopiuj link do czatu</span></button>
+      <button class="tile" id="pokaz">Show results<span class="pl">pokaż wyniki</span></button>
+      <button class="sec tile" id="prez">Presentation mode<span class="pl">tryb prezentacji, wyjście: Esc</span></button>
      </div>
-     <div class="row">
-      <button id="pokaz">Show results <span class="pl">(pokaż wyniki)</span></button>
-      <button id="prez" class="sec">Presentation mode <span class="pl">(tryb prezentacji, wyjście: Esc)</span></button>
-      <button id="wyl" class="sec">Sign out <span class="pl">(wyloguj)</span></button>
+     <div class="grp">Participants <span class="pl">(uczestnicy)</span></div>
+     <div class="grid3">
+      <div class="tile box"><strong id="nObec">0</strong><small>joined <span class="pl" style="display:inline">(dołączyło)</span></small></div>
+      <div class="tile box"><strong id="nOdp">0</strong><small>answered <span class="pl" style="display:inline">(odpowiedziało)</span></small></div>
+      <button class="sec tile" id="wyl">Sign out<span class="pl">wyloguj</span></button>
      </div>
     </div>
    </div>
@@ -268,8 +281,8 @@ function widokProwadzacy(){
   }
   function stan(){
     const el=$("#stan"); if(!el) return;
-    if(!sesja){ el.innerHTML = `Not created yet <span class="pl">(sesja jeszcze nie istnieje — kliknij „Open poll”)</span>`; return; }
-    el.innerHTML = sesja.otwarta ? `<b style="color:var(--ok)">Open</b> <span class="pl">(otwarta, przyjmuje odpowiedzi)</span>` : `<b style="color:var(--red)">Closed</b> <span class="pl">(zamknięta)</span>`;
+    if(!sesja){ el.innerHTML = `<b>Not created yet</b><span class="pl">sesja nie istnieje, kliknij Open poll</span>`; return; }
+    el.innerHTML = sesja.otwarta ? `<b style="color:var(--ok)">Open</b><span class="pl">otwarta, przyjmuje odpowiedzi</span>` : `<b style="color:var(--red)">Closed</b><span class="pl">zamknięta</span>`;
   }
   function liczniki(){
     $("#nObec").textContent = lista.filter(x=>x.cw==="obecnosc").length;
@@ -297,7 +310,7 @@ function widokProwadzacy(){
   }
 
   $("#zmienKod").onclick = () => { const k=$("#kod").value.trim().toUpperCase(); if(k){ kod=k; podlacz(); } };
-  $("#kopiuj").onclick = async () => { try{ await navigator.clipboard.writeText(link()); $("#kopiuj").textContent="Copied (skopiowano)"; setTimeout(()=>$("#kopiuj").innerHTML=`Copy link <span class="pl">(kopiuj link do czatu)</span>`,1500);}catch(e){} };
+  $("#kopiuj").onclick = async () => { try{ await navigator.clipboard.writeText(link()); $("#kopiuj").innerHTML=`Copied<span class="pl">skopiowano</span>`; setTimeout(()=>$("#kopiuj").innerHTML=`Copy link<span class="pl">kopiuj link do czatu</span>`,1500);}catch(e){} };
   $("#otworz").onclick = async () => {
     try{ await setDoc(doc(db,"sesje",kod),{nazwa:"CMI webinar · Six Blind Spots", otwarta:true, aktywne:CW, utworzona:serverTimestamp()},{merge:true}); }
     catch(e){ alert(blad(e)); }
@@ -308,7 +321,7 @@ function widokProwadzacy(){
     try{ const s=await getDocs(collection(db,"sesje",kod,"odpowiedzi")); const b=writeBatch(db); s.forEach(d=>b.delete(d.ref)); await b.commit(); }
     catch(e){ alert(blad(e)); }
   };
-  $("#pokaz").onclick = () => { pokaz=!pokaz; $("#pokaz").innerHTML = pokaz?`Hide results <span class="pl">(ukryj wyniki)</span>`:`Show results <span class="pl">(pokaż wyniki)</span>`; tablica(true); };
+  $("#pokaz").onclick = () => { pokaz=!pokaz; $("#pokaz").innerHTML = pokaz?`Hide results<span class="pl">ukryj wyniki</span>`:`Show results<span class="pl">pokaż wyniki</span>`; tablica(true); };
   const wejdz = () => { document.body.classList.add("show"); $("#wyjdz").classList.remove("hidden"); };
   const wyjdz = () => { document.body.classList.remove("show"); $("#wyjdz").classList.add("hidden"); };
   $("#prez").onclick = wejdz; $("#wyjdz").onclick = wyjdz;
